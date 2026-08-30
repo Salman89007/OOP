@@ -3,6 +3,24 @@ using namespace std;
 
 int** construct2DArray(int* original, int m, int n){
 
+    int** ptr = new int*[m];
+    for (int i = 0; i < m; i++)
+    {
+        ptr[i] = new int[n];
+    }
+    *ptr = original;
+
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout<<ptr[i][j]<<endl;
+            
+        }
+        cout<<endl;
+    }
+    
+    return ptr;
 }
 
 int main() {
@@ -20,17 +38,9 @@ int main() {
     {
         cin>>arr[i];
     }
-    int** ptr = new int*[m];
-    for (int i = 0; i < m; i++)
-    {
-        ptr[i] = new int[n];
-    }
     
-    for (int i = 0; i < m; i++)
-    {
-        delete[] ptr[i];
-    }
-    delete ptr;
+    int **DoubleArray = construct2DArray(arr,m,n);
     
+
     return 0;
 }
