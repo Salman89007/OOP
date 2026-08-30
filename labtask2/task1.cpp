@@ -49,9 +49,16 @@ int main()
     {
         ptr[i] = new int[col];
     }
+    
     Fillarray(ptr,row,col);
     int* max = findlargest(ptr,row,col);
     Print(max);
+
+    for (int i = 0; i < row; i++)
+    {
+        delete[] ptr[i];
+    }
+    delete[] ptr;
 
     return 0;
 }
