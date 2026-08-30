@@ -42,5 +42,7 @@ int main() {
     Fillarray(ptr,row,col);
     Print(ptr,row,col);
 
+    delete[] ptr;
+
     return 0;
 }
