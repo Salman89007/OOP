@@ -5,6 +5,28 @@ using single pointer;
 #include <iostream>
 using namespace std;
 
+void Fillarray(int *ptr,int row, int col){
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cin>>ptr[i*col+j];
+        }   
+    }
+
+}
+
+void Print(int *ptr,int row, int col){
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            ptr[i*col+j];
+        }   
+    }
+
+}
+
 int main() {
     int row,col;
 
@@ -15,8 +37,9 @@ int main() {
     cin>>col;
 
     int * ptr = new int[row*col];
-    
-    
+
+    Fillarray(ptr,row,col);
+    Print(ptr,row,col);
 
     return 0;
 }
