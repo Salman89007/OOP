@@ -29,7 +29,7 @@ int countNegatives(int **grid, int rows, int columns)
 }
 
 void Print(int neg){
-    cout<<neg<<endl;
+    cout<<"Negative Numbers : "<<neg<<endl;
 }
 
 int main()
