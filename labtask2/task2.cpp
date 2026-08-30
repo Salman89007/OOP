@@ -21,7 +21,7 @@ int** construct2DArray(int* original, int m, int n){
 }
 
 void Print(int** ptr, int m, int n){
-    
+
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
@@ -55,7 +55,7 @@ int main() {
     {
         delete[] DoubleArray[i];
     }
-    delete DoubleArray;
+    delete[] DoubleArray;
 
     return 0;
 }
