@@ -21,8 +21,9 @@ void Print(int *ptr,int row, int col){
     {
         for (int j = 0; j < col; j++)
         {
-            ptr[i*col+j];
+            cout<<ptr[i*col+j]<<" ";
         }   
+        cout<<endl;
     }
 
 }
