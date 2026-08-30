@@ -12,8 +12,26 @@ void Fillarray(int **ptr, int row, int col)
     }
 }
 
-int findlargest(int **matrix, int rows, int columns)
+int* findlargest(int **matrix, int rows, int columns)
 {
+    int *ptr = *matrix;
+    int max = matrix[0][0];
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            if (ptr[i * columns + j] > max)
+            {
+                max = ptr[i * columns + j];
+            }
+        }
+    }
+
+    return *matrix;
+}
+
+void Print(int *max){
+    cout<<"max element is "<<*max;
 }
 
 int main()
@@ -31,6 +49,9 @@ int main()
     {
         ptr[i] = new int[col];
     }
+    Fillarray(ptr,row,col);
+    int* max = findlargest(ptr,row,col);
+    Print(max);
 
     return 0;
 }
