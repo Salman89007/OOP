@@ -8,19 +8,28 @@ int** construct2DArray(int* original, int m, int n){
     {
         ptr[i] = new int[n];
     }
-    *ptr = original;
 
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            cout<<ptr[i][j]<<endl;
-            
+            ptr[i][j] = original[i*n+j];
         }
-        cout<<endl;
     }
     
     return ptr;
+}
+
+void Print(int** ptr, int m, int n){
+    
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout<<ptr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }
 
 int main() {
@@ -40,7 +49,13 @@ int main() {
     }
     
     int **DoubleArray = construct2DArray(arr,m,n);
-    
+    Print(DoubleArray,m,n);
+
+    for (int i = 0; i < m; i++)
+    {
+        delete[] DoubleArray[i];
+    }
+    delete DoubleArray;
 
     return 0;
 }
