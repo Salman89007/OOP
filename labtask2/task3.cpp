@@ -1,6 +1,17 @@
 #include <iostream>
 using namespace std;
 
+void Fillarray(int **ptr, int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cin >> ptr[i][j];
+        }
+    }
+}
+
 int countNegatives(int **grid, int rows, int columns)
 {
     int neg = 0;
@@ -36,6 +47,7 @@ int main()
     {
         ptr[i] = new int[col];
     }
+    Fillarray(ptr,row,col);
     int negativeNums = countNegatives(ptr, row, col);
     Print(negativeNums);
 
@@ -44,6 +56,6 @@ int main()
         delete[] ptr[i];
     }
     delete[] ptr;
-    
+
     return 0;
 }
