@@ -12,8 +12,20 @@ void Fillarray(int **ptr, int row, int col)
     }
 }
 
-int diagonalSum(int** matrix,int size){
+int diagonalSum(int **matrix, int size)
+{
     int sum = 0;
+    for (int i = 0; i < size-1; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            sum += matrix[i][j];
+            if (i != size - 1 - i)
+            {
+                sum += matrix[i][size - 1 - i];
+            }
+        }
+    }
     return sum;
 }
 
@@ -22,7 +34,8 @@ void Print(int sum)
     cout << "sum is " << sum;
 }
 
-int main() {
+int main()
+{
     int row, col;
 
     cout << "enter rows : ";
@@ -37,8 +50,8 @@ int main() {
         ptr[i] = new int[col];
     }
 
-    Fillarray(ptr,row,col);
-    int sum = diagonalSum(ptr,row);
+    Fillarray(ptr, row, col);
+    int sum = diagonalSum(ptr, row);
     Print(sum);
 
     for (int i = 0; i < row; i++)
@@ -46,6 +59,6 @@ int main() {
         delete[] ptr[i];
     }
     delete[] ptr;
-    
+
     return 0;
 }
