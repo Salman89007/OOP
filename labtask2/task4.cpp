@@ -1,6 +1,17 @@
 #include <iostream>
 using namespace std;
 
+void Fillarray(int **ptr, int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cin >> ptr[i][j];
+        }
+    }
+}
+
 int diagonalSum(int** matrix,int size){
     int sum = 0;
     return sum;
@@ -17,7 +28,7 @@ int main() {
     cout << "enter rows : ";
     cin >> row;
 
-    cout << "enter columns : ";
+    cout << "enter columns (must be equal to row) : ";
     cin >> col;
 
     int **ptr = new int *[row];
@@ -26,13 +37,9 @@ int main() {
         ptr[i] = new int[col];
     }
 
-    int sum = diagonalSum(ptr,row*col);
-
-
-
-
-
-
+    Fillarray(ptr,row,col);
+    int sum = diagonalSum(ptr,row);
+    Print(sum);
 
     for (int i = 0; i < row; i++)
     {
