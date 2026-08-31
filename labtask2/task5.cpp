@@ -28,30 +28,40 @@ int Count(int **ptr, int size)
     return num;
 }
 
-void Found(int **ptr, int size)
+int Found(int **ptr, int count)
 {
+    int hits = 0;
     int row, col;
 
-    for (int i = 0; i < size; i++)
+    while (hits < count)
     {
-        for (int j = 0; j < size; j++)
-        {
-            cout << "enter rows : ";
-            cin >> row;
+        cout << "enter rows : ";
+        cin >> row;
 
-            cout << "enter columns : ";
-            cin >> col;
-            if (ptr[i][j] == ptr[row][col])
-            {
-                ptr[i][j] = 0;
-            }
+        cout << "enter columns  : ";
+        cin >> col;
+        if (ptr[row][col] == 1)
+        {
+            ptr[row][col] = 0;
+            cout << "enemy destroyed" << endl;
+            hits++;
+        }
+        else
+        {
+            cout << "enemy remaining" << endl;
         }
     }
+    return hits;
 }
-void printCount(int count){
-    cout<<"enemies alive : "<<count<<endl;
+void printCount(int count)
+{
+    cout << "enemies alive : " << count << endl;
 }
 
+void PrintHits(int hits)
+{
+    cout << "Number of hits needed : " << hits << endl;
+}
 void Print(int **ptr, int size)
 {
     for (int i = 0; i < size; i++)
@@ -81,7 +91,8 @@ int main()
     Fillarray(ptr, size);
     int count = Count(ptr, size);
     printCount(count);
-    Found(ptr, size);
+    int hits = Found(ptr, count);
+    PrintHits(hits);
     Print(ptr, size);
 
     for (int i = 0; i < size; i++)
