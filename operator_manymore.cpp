@@ -13,9 +13,6 @@ public:
         this->x = x;
         this->y = y;
     }
-
-    
-
     base operator-(base &b)
     {
         base result;

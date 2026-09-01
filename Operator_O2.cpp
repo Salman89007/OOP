@@ -17,10 +17,10 @@ public:
         this->x = x;  
         this->y = y;  
     }
-    base operator+(base &b){
+    base operator-(base &b){
         base result;        
-        result.x = b.x + x; 
-        result.y = b.y + y; 
+        result.x = b.x - x; 
+        result.y = b.y - y; 
         return result;      
     }                      
                             
@@ -39,7 +39,7 @@ int main()
 {
     base b1(1, 2);
     base b2(4, 3);
-    base result = b1+b2;
+    base result = b1-b2;
     result.print();
 
     return 0;
