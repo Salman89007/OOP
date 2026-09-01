@@ -11,6 +11,7 @@ class Friend{
 
 };
 void showX(Friend f){
+    
     cout<<f.x<<endl;
 }
 
