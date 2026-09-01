@@ -14,6 +14,8 @@ public:
         this->y = y;
     }
 
+    
+
     base operator-(base &b)
     {
         base result;
