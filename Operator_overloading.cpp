@@ -27,6 +27,9 @@ public:
         cout << "x : " << x << endl;
         cout << "y : " << y << endl;   
     }
+    ~base(){
+        cout<<"operator deleted"<<endl;
+    }
 };
 
 int main()
