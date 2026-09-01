@@ -20,7 +20,6 @@ public:
         result.x = b.x + x;
         result.y = b.y + y;
         return result;
-
     }
     
     void print()
