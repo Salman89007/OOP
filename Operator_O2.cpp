@@ -9,6 +9,8 @@ class base
 public:
     base()
     {
+        x = 0;
+        y = 0;
     }
     base(int x, int y)
     {                 
