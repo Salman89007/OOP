@@ -3,39 +3,44 @@ using namespace std;
 
 class base
 {
-protected:
-    int sum1 = 0;
-    int sum2 = 0;
+    int sum1;
+    int sum2;
     int x;
     int y;
 
 public:
+    base()
+    {
+        sum1 = 0;
+        sum2 = 0;
+    }
+
     base(int x, int y)
     {
         this->x = x;
         this->y = y;
     }
-    int add(base &b)
+    base add(base &b)
     {
-        return sum1 = b.x + x;
-        return sum2 = b.y + y;
+        base result;
+        result.x = b.x + x;
+        result.y = b.y + y;
+        return result;
     }
-    void print(const base &b)
+    void print()
     {
-        cout << sum1;
-        cout << sum2;
+        cout << "x : " << x << endl;
+        cout << "y : " << y << endl;
     }
-};
-
-class derived : public base
-{
 };
 
 int main()
 {
-    base b(1, 2);
-    b.add(b);
-    b.print(b);
+    base b1(1, 2);
+    base b2(4, 3);
+
+    base result = b1.add(b2);
+    result.print();
 
     return 0;
 }
