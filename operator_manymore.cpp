@@ -40,7 +40,6 @@ int main()
     base b1(5, 8);
     base b2(2, 3);
     
-
     base result = b1 - b2;   // calls operator-
     cout << result << endl;  // calls operator
 
