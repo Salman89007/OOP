@@ -13,6 +13,7 @@ public:
         this->cash = cash;
     }
     friend void transfer(Wallet &w, Bank &b, int amount);
+    friend void Print(const Wallet &w,const Bank &b);
 };
 class Bank
 {
@@ -21,6 +22,7 @@ class Bank
 public:
 
     friend void transfer(Wallet &w, Bank &b, int amount);
+    friend void Print(const Wallet &w,const Bank &b);
 };
 void transfer(Wallet &w, Bank &b, int amount)
 {
@@ -31,7 +33,10 @@ void transfer(Wallet &w, Bank &b, int amount)
     w.cash -= amount;
     b.vault += amount;
 }
-
+void Print(const Wallet &w,const Bank &b){
+    cout<<"cash : "<<w.cash<<endl;
+    cout<<"in vault"<<b.vault<<endl;
+}
 int main()
 {
     Wallet w(5000);
@@ -40,7 +45,6 @@ int main()
     cout<<"enter amount"<<endl;
     cin>>amount;
     transfer(w,b,amount);
-
-
+    Print(w,b);
     return 0;
 }
