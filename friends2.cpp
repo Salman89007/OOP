@@ -46,7 +46,7 @@ void Print(const Wallet &w, const Bank &b)
 int main()
 {
     Wallet w(100);
-    Bank b(30);
+    Bank b(500);
     int amount;
     cout << "enter amount" << endl;
     cin >> amount;
