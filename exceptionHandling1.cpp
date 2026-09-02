@@ -13,7 +13,8 @@ int main()
     try
     {
         cout << divide(10, 2) << endl;   // works fine, prints 5
-        cout << divide(5, 0) << endl;    // this line throws
+        cout << divide(5, 0) << endl; // this line throws
+        cout << divide(6, 2) << endl;
         cout << "This line never runs" << endl;
     }
     catch (const char *msg)              // catches the thrown string
