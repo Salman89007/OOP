@@ -26,7 +26,7 @@ void transfer(Wallet &w, Bank &b, int amount)
 {
     if (w.cash < amount)
     {
-        cout << "insufficient funds : " << endl;
+        cout << "insufficient funds" << endl;
     }
     w.cash -= amount;
     b.vault += amount;
