@@ -65,9 +65,9 @@ int main()
     double *rowAvg = new double[rows]();
 
     Fillarray(ptr, rows, cols);
-    double Highest_row_Avg = calculateRowAverages(ptr, rows, cols, rowAvg);
+    double Highest_row_Number = calculateRowAverages(ptr, rows, cols, rowAvg);
     Print(ptr, rows, cols);
-    cout<<"Row with largest Average is "<<Highest_row_Avg<<endl;
+    cout<<"Row with largest Average is "<<Highest_row_Number<<endl;
 
     for (int i = 0; i < rows; i++)
     {
