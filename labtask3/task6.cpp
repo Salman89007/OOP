@@ -12,27 +12,29 @@ void Fillarray(int **ptr, int row, int col)
         }
     }
 }
-double* calculateRowAverages(int** arr, int rows, int cols, double*rowAverages)
+double calculateRowAverages(int **arr, int rows, int cols, double *rowAverages)
 {
-    double sum = 0;
-    rowAverages = &sum;
-
 
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            rowAverages += arr[i][j];
+            rowAverages[i] += arr[i][j];
         }
-        
+        rowAverages[i]/=cols;
     }
-    
-
-    return rowAverages;
+    double max = rowAverages[0];
+    double maxRow = 0;
+    for (int i = 0; i < rows; i++)
+    {
+        if (rowAverages[i] > max)
+        {
+            max = rowAverages[i];
+            maxRow = i;
+        }
+    }
+    return maxRow+1;
 }
-
-
-
 void Print(int **arr, int rows, int cols)
 {
 
@@ -60,13 +62,12 @@ int main()
     {
         ptr[i] = new int[cols];
     }
-    double *rowAvg = new double[rows*cols];
+    double *rowAvg = new double[rows]();
 
     Fillarray(ptr, rows, cols);
-    double* Avg = calculateRowAverages(ptr, rows, cols,rowAvg);
+    double Highest_row_Avg = calculateRowAverages(ptr, rows, cols, rowAvg);
     Print(ptr, rows, cols);
-
-
+    cout<<"Row with largest Average is "<<Highest_row_Avg<<endl;
 
     for (int i = 0; i < rows; i++)
     {
@@ -74,7 +75,7 @@ int main()
     }
     delete[] ptr;
 
-
+    delete[] rowAvg;
 
     return 0;
 }
