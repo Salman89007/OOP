@@ -52,7 +52,6 @@ int main()
     Fillarray(arr2, m, n);
 
     int * sum = addFlattened2D(arr1, arr2, arr3, m, n);
-    cout<<"sum is "<<*sum;
 
     printFlattened2D(arr1, m, n);
     printFlattened2D(arr2, m, n);
