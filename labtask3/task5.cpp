@@ -16,7 +16,7 @@ void Fillarray(int **ptr, int row, int col)
 int **transposeMatrix(int **arr, int rows, int cols)
 {
     int **transpose = new int *[cols];
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < cols; i++)
     {
         transpose[i] = new int[rows];
     }
@@ -51,7 +51,7 @@ int main()
     cout << "enter rows : " << endl;
     cin >> rows;
 
-    cout << "enter rows : " << endl;
+    cout << "enter cols : " << endl;
     cin >> cols;
 
     int **ptr = new int *[rows];
