@@ -13,15 +13,27 @@ void Fillarray(int **ptr, int row, int col)
     }
 }
 
-int** transposeMatrix(int** arr, int rows, int cols){
+int **transposeMatrix(int **arr, int rows, int cols)
+{
+    int **transpose = new int *[rows];
+    for (int i = 0; i < rows; i++)
+    {
+        transpose[i] = new int[cols];
+    }
 
-    
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            transpose[i][j] = arr[j][i];
+        }
+    }
 
-
-    return arr;
+    return transpose;
 }
 
-void Print(int** arr, int rows, int cols){
+void Print(int **arr, int rows, int cols)
+{
 
     for (int i = 0; i < rows; i++)
     {
@@ -33,33 +45,34 @@ void Print(int** arr, int rows, int cols){
     }
 }
 
-int main() {
-    int rows,cols;
-    cout<<"enter rows : "<<endl;
-    cin>>rows;
+int main()
+{
+    int rows, cols;
+    cout << "enter rows : " << endl;
+    cin >> rows;
 
-    cout<<"enter rows : "<<endl;
-    cin>>cols;
+    cout << "enter rows : " << endl;
+    cin >> cols;
 
-    int **ptr = new int*[rows];
+    int **ptr = new int *[rows];
     for (int i = 0; i < rows; i++)
     {
         ptr[i] = new int[cols];
     }
 
-    Fillarray(ptr,rows,cols);
-    cout<<"Before Transpose"<<endl;
-    Print(ptr,rows,cols);
+    Fillarray(ptr, rows, cols);
+    cout << "Before Transpose" << endl;
+    Print(ptr, rows, cols);
 
-    transposeMatrix(ptr,rows,cols);
-    cout<<"After Transpose"<<endl;
-    Print(ptr,rows,cols);
-    
+    transposeMatrix(ptr, rows, cols);
+    cout << "After Transpose" << endl;
+    Print(ptr, rows, cols);
+
     for (int i = 0; i < rows; i++)
     {
         delete[] ptr[i];
     }
     delete[] ptr;
-    
+
     return 0;
 }
