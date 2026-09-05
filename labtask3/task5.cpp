@@ -15,17 +15,17 @@ void Fillarray(int **ptr, int row, int col)
 
 int **transposeMatrix(int **arr, int rows, int cols)
 {
-    int **transpose = new int *[rows];
+    int **transpose = new int *[cols];
     for (int i = 0; i < rows; i++)
     {
-        transpose[i] = new int[cols];
+        transpose[i] = new int[rows];
     }
 
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            transpose[i][j] = arr[j][i];
+            transpose[j][i] = arr[i][j];
         }
     }
 
@@ -64,15 +64,21 @@ int main()
     cout << "Before Transpose" << endl;
     Print(ptr, rows, cols);
 
-    transposeMatrix(ptr, rows, cols);
+    int  ** transpose = transposeMatrix(ptr, rows, cols);
     cout << "After Transpose" << endl;
-    Print(ptr, rows, cols);
+    Print(transpose, cols, rows);
 
     for (int i = 0; i < rows; i++)
     {
         delete[] ptr[i];
     }
     delete[] ptr;
+
+    for (int i = 0; i < cols; i++)
+    {
+        delete[] transpose[i];
+    }
+    delete[] transpose;
 
     return 0;
 }
