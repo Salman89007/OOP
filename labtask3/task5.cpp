@@ -20,7 +20,7 @@ int** transposeMatrix(int** arr, int rows, int cols){
 }
 
 void Print(int** arr, int rows, int cols){
-    
+
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
@@ -46,7 +46,10 @@ int main() {
     }
 
     Fillarray(ptr,rows,cols);
+    Print(ptr,rows,cols);
+    
     transposeMatrix(ptr,rows,cols);
+    Print(ptr,rows,cols);
     
     return 0;
 }
