@@ -1,69 +1,99 @@
 #include <iostream>
 using namespace std;
 
-struct Room{
+struct room
+{
     int power;
     bool cursedFlag;
     bool sealedFlag;
 };
-struct Floor{
-    Room* rooms; 
-    int roomCount;
+struct floor
+{
+    room *rooms;
+    int roomcount;
 };
-void RoomFunc(Room &room){
-    room.cursedFlag = false;
-    room.sealedFlag = false;
-    room.power = 2;
-}
-void FloorFunc(Floor &floor){
-    
-}
 
 int main()
 {
+    char *name = new char[20];
+    cin.getline(name, 20);
     int n;
-    Room r;
-    Floor f;
-    RoomFunc(r);
-    FloorFunc(f);
     cout << "enter N" << endl;
     cin >> n;
-    char name[] = "salman";
-    
-    int *number = new int[n];
-    int **ptr = new int *[n];
+    floor *f = new floor[n];
     for (int i = 0; i < n; i++)
     {
-        number[i] = n-i;
-        ptr[i] = new int[*(number+i)];
+        f[i].roomcount = n - i;
+        f[i].rooms = new room[f[i].roomcount];
     }
+    int roomCounter = 0;
+    int cursedCount = 0;
+    int sealedCount = 0;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < *(number+i); j++)
+        for (int j = 0; j < f[i].roomcount; j++)
         {
-            cout << "enter for ptr[" << i << "]" << "[" << j << "]" << endl;
-            cin >> *(*(ptr + i) + j);
+            roomCounter++;
+
+            int floorNumber = i + 1;
+            int roomNumber = j + 1;
+
+            int power = (j + 1) * 10;
+
+            if (floorNumber % 2 == 1 && roomNumber % 2 == 1) // if floor
+            {                                                // and room number is odd then double the power, curse becomes true
+                power = power * 2;
+                f[i].rooms[j].cursedFlag = true;
+                cursedCount++;
+            }
+            else
+            {
+                f[i].rooms[j].cursedFlag = false;
+            }
+
+            f[i].rooms[j].power = power;
+            if (i == n - 1) // last floor = deepest floor = boss chamber
+            {
+                f[i].rooms[j].power = 99; // override, no matter what curse computed
+            }
+
+            if (roomCounter % 3 == 0)
+            {
+                f[i].rooms[j].sealedFlag = true;
+                sealedCount++;
+            }
+            else
+            {
+                f[i].rooms[j].sealedFlag = false;
+            }
         }
     }
-    cout<<"NAME IS : "<<name<<endl;
-
+    // print
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < *(number+i); j++)
+        cout << "FLOOR " << (i + 1) << " ";
+        for (int j = 0; j < f[i].roomcount; j++)
         {
-            cout << "ptr[" << i << "]" << "[" << j << "]" <<" ";
-            cout << *(*(ptr + i) + j)<<endl;
+            if (f[i].rooms[j].sealedFlag)
+            {
+                cout << "[LOCKED]";
+            }
+            else
+            {
+                cout << "[ " << f[i].rooms[j].power << " ]";
+            }
         }
         cout << endl;
     }
+    cout << "Rooms carved : " << roomCounter << "   Rooms wasted : 0" << endl;
+    cout << "Cursed : " << cursedCount << "   Sealed : " << sealedCount << endl;
 
+    delete[] name;
     for (int i = 0; i < n; i++)
     {
-        delete[] *(ptr+i);
+        delete[] (f + i)->rooms;
     }
-
-    delete[] ptr;
-    delete[] number;
+    delete[] f;
 
     return 0;
 }
