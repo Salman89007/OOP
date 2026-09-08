@@ -12,11 +12,57 @@ struct floor
     room *rooms;
     int roomcount;
 };
+// part b
+const room *findStrongest(const room *const rooms, int roomCount)
+{
+    const room *strongest = nullptr;
+    for (int i = 0; i < roomCount; i++)
+    {
+        if ((rooms + i)->sealedFlag == 1)
+        {
+            continue;
+        }
 
+        if (strongest == nullptr || (rooms + i)->power > strongest->power)
+        {
+            strongest = rooms + i;
+        }
+    }
+    return strongest;
+}
+void printAny(void *data, char type)
+{
+    if (type == 'i')
+        cout << *(int *)data << endl;
+    else if (type == 'f')
+        cout << *(float *)data << endl;
+    else if (type == 'c')
+        cout << *(char *)data << endl;
+}
+void destroyDungeon(floor **fPtr, char **namePtr, int n)
+{
+    floor *f = *fPtr;
+    for (int i = 0; i < n; i++)
+    {
+        delete[] f[i].rooms;
+        cout << "Floor " << (n - i) << " freed ... ok" << endl;
+    }
+    delete[] f;
+    cout << "Floor table freed ... ok" << endl;
+    delete[] *namePtr;
+    cout << "Hero name freed ... ok" << endl;
+    *fPtr = nullptr;
+    *namePtr = nullptr;
+}
 int main()
 {
-    char *name = new char[20];
-    cin.getline(name, 20);
+    string temp;
+    getline(cin, temp);
+    int len = temp.length();
+    char *name = new char[len + 1];
+    for (int i = 0; i < len; i++)
+        name[i] = temp[i];
+    name[len] = '\0';
     int n;
     cout << "enter N" << endl;
     cin >> n;
@@ -68,6 +114,17 @@ int main()
             }
         }
     }
+    int demoInt = f[0].rooms[0].power; 
+    cout << "Debug print (int): ";
+    printAny(&demoInt, 'i');
+
+    float demoFloat = 3.14f;
+    cout << "Debug print (float): ";
+    printAny(&demoFloat, 'f');
+
+    char demoChar = name[0]; 
+    cout << "Debug print (char): ";
+    printAny(&demoChar, 'c');
     // print
     for (int i = 0; i < n; i++)
     {
@@ -88,12 +145,33 @@ int main()
     cout << "Rooms carved : " << roomCounter << "   Rooms wasted : 0" << endl;
     cout << "Cursed : " << cursedCount << "   Sealed : " << sealedCount << endl;
 
-    delete[] name;
+    // finding the strongest
+    const room *overallBest = nullptr;
+    int bestFloor = -1;
+    int bestRoom = -1;
     for (int i = 0; i < n; i++)
     {
-        delete[] (f + i)->rooms;
+        const room *candidate = findStrongest(f[i].rooms, f[i].roomcount);
+        if (candidate != nullptr)
+        {
+            if (overallBest == nullptr || candidate->power > overallBest->power)
+            {
+                overallBest = candidate;
+                bestFloor = i + 1;
+                bestRoom = (candidate - f[i].rooms) + 1; // pointer subtraction to recover which room index this was
+            }
+        }
     }
-    delete[] f;
-
+    if (overallBest != nullptr)
+    {
+        cout << "Strongest monster : " << overallBest->power
+             << " (Floor " << bestFloor << ", Room " << bestRoom << ")" << endl;
+    }
+    if (f[n - 1].rooms[0].sealedFlag)
+    {
+        cout << ">>> BOSS CHAMBER SEALED - RUN INCOMPLETE <<<" << endl;
+    }
+    // freeing the memory
+    destroyDungeon(&f, &name, n);
     return 0;
 }
