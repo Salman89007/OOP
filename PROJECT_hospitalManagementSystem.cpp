@@ -15,9 +15,10 @@ public:
         this->name = name;
         this->age = age;
     }
-    ~Person()
+    virtual void displayInfo() = 0; // pure virtual — Person is now abstract
+    virtual ~Person()
     {
-        cout << "constructor Person Destroyed" << endl;
+        cout << name << " (Person) destroyed" << endl;
     }
 };
 class Patient : public Person
@@ -37,6 +38,13 @@ public:
         this->issue = issue;
         this->Doctor_number = Doctor_number;
     }
+    void displayInfo() override
+    {
+
+        cout << "ID: " << ID << ", Name: " << name << ", Age: " << age << endl;
+        cout << "Appointment: " << appointment_date << " #" << appointment_number
+             << ", Issue: " << issue << endl;
+    }
 };
 
 class Doctor : public Person
@@ -51,6 +59,12 @@ public:
         this->specialization = specialization;
         this->doctor_number = doctor_number;
     }
+    void displayInfo() override
+    {
+
+        cout << "ID: " << ID << ", Name: " << name << ", Age: " << age << endl;
+        cout << "specialization: " << specialization << "doctor_number #" << doctor_number << endl;
+    }
 };
 class Surgeon : public Doctor
 {
@@ -62,6 +76,11 @@ public:
     {
         this->surgeon_specialization = surgeon_specialization;
     }
+    void displayInfo() override
+    {
+        Doctor::displayInfo();
+        cout << "surgeon_specialization: " << surgeon_specialization << endl;
+    }
 };
 class GeneralPhysician : public Doctor
 {
@@ -72,6 +91,11 @@ public:
     GeneralPhysician(int ID, string name, int age, string specialization, int doctor_number, string Physician) : Doctor(ID, name, age, specialization, doctor_number)
     {
         this->Physician = Physician;
+    }
+    void displayInfo() override
+    {
+        Doctor::displayInfo();
+        cout << "Physician: " << Physician << endl;
     }
 };
 class Staff : public Person
@@ -86,6 +110,12 @@ public:
         this->staff_shift = staff_shift;
         this->staff_number = staff_number;
     }
+    void displayInfo() override
+    {
+
+        cout << "ID: " << ID << ", Name: " << name << ", Age: " << age << endl;
+        cout << "staff_shift: " << staff_shift << "staff_number #" << staff_number << endl;
+    }
 };
 class Nurse : public Staff
 {
@@ -98,6 +128,11 @@ public:
     {
         this->Nurse_shift = Nurse_shift;
         this->Nurse_number = Nurse_number;
+    }
+    void displayInfo() override
+    {
+        Staff::displayInfo();
+        cout << "Nurse_shift: " << Nurse_shift << ", Nurse_number: " << Nurse_number << endl;
     }
 };
 class Receptionist : public Staff
@@ -112,10 +147,30 @@ public:
         this->Receptionist_shift = Receptionist_shift;
         this->Receptionist_number = Receptionist_number;
     }
+    void displayInfo() override
+    {
+        Staff::displayInfo();
+        cout << "Receptionist_shift: " << Receptionist_shift << ", Receptionist_number: " << Receptionist_number << endl;
+    }
 };
 
 int main()
 {
+    Person *people[5];
+    people[0] = new Patient(1, "Ali", 30, "2026-09-10", 101, "Fever", nullptr);
+    people[1] = new Surgeon(2, "Dr. Khan", 45, "Surgery", 501, "Cardiothoracic");
+    people[2] = new GeneralPhysician(3, "Dr. Iqbal", 40, "General", 502, "Internal Medicine");
+    people[3] = new Nurse(4, "Sara", 25, "Day", 201, "Night", 301);
+    people[4] = new Receptionist(5, "Ayesha", 22, "Day", 202, "Morning", 401);
+
+    for (int i = 0; i < 5; i++)
+    {
+        people[i]->displayInfo();
+        cout << "-----------------" << endl;
+    }
+
+    for (int i = 0; i < 5; i++)
+        delete people[i];
 
     return 0;
 }
