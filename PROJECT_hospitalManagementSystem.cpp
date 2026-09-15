@@ -63,7 +63,7 @@ public:
     {
 
         cout << "ID: " << ID << ", Name: " << name << ", Age: " << age << endl;
-        cout << "specialization: " << specialization << "doctor_number #" << doctor_number << endl;
+        cout << "specialization: " << specialization << ",doctor_number #" << doctor_number << endl;
     }
 };
 class Surgeon : public Doctor
@@ -114,7 +114,7 @@ public:
     {
 
         cout << "ID: " << ID << ", Name: " << name << ", Age: " << age << endl;
-        cout << "staff_shift: " << staff_shift << "staff_number #" << staff_number << endl;
+        cout << "staff_shift: " << staff_shift << ",staff_number #" << staff_number << endl;
     }
 };
 class Nurse : public Staff

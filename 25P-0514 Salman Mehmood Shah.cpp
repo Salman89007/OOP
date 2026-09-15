@@ -102,7 +102,6 @@ int main()
             {
                 ((f + i)->rooms + j)->power = 99; // override, no matter what curse computed
             }
-
             if (roomCounter % 3 == 0)
             {
                 ((f + i)->rooms + j)->sealedFlag = true;
@@ -114,6 +113,7 @@ int main()
             }
         }
     }
+    //checking void*
     int demoInt = (f + 0)->rooms->power; 
     cout << "Debug print (int): ";
     printAny(&demoInt, 'i');
