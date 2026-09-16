@@ -8,7 +8,7 @@ int *create2D(int rows, int cols)
     {
         for (int j = 0; j < cols; j++)
         {
-            cin >> ptr[i * cols + j];
+            cin >> *(ptr + (i*cols+j));
         }
     }
     return ptr;
