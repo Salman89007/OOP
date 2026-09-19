@@ -32,6 +32,14 @@ int main()
         cout << "Enter choice: ";
         cin >> choice;
 
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Enter a number only." << endl;
+            continue;
+        }
+
         if (choice == 1)
         {
             if (count >= 30)
@@ -67,7 +75,7 @@ int main()
             bool found = false;
             int Price;
             cout << "enter the price range you want your car to be" << endl;
-            cin>>Price;
+            cin >> Price;
             for (int i = 0; i < count; i++)
             {
                 if (cars[i].price == Price)
@@ -79,11 +87,10 @@ int main()
                     cout << "\nHorsepower: " << cars[i].e.hp << endl;
                 }
             }
-            if (found!= true)
+            if (found != true)
             {
-                cout<<"no car available in that range"<<endl;
+                cout << "no car available in that range" << endl;
             }
-            
         }
         else if (choice == 4)
         {
@@ -101,9 +108,9 @@ int main()
                     cout << "\nHorsepower: " << cars[i].e.hp << endl;
                 }
             }
-            if (found!= true)
+            if (found != true)
             {
-                cout<<"no car available in that range"<<endl;
+                cout << "no car available in that range" << endl;
             }
         }
         else if (choice == 5)
@@ -122,9 +129,9 @@ int main()
                     cout << "\nHorsepower: " << cars[i].e.hp << endl;
                 }
             }
-            if (found!= true)
+            if (found != true)
             {
-                cout<<"no car available in that range"<<endl;
+                cout << "no car available in that range" << endl;
             }
         }
         else if (choice == 6)
@@ -144,15 +151,14 @@ int main()
                     cout << "\nHorsepower: " << cars[i].e.hp << endl;
                 }
             }
-            if (found!= true)
+            if (found != true)
             {
-                cout<<"no car available in that range"<<endl;
+                cout << "no car available in that range" << endl;
             }
         }
         else if (choice == 7)
         {
-            cout<<"Exiting ..."<<endl;
-            break;
+            cout << "Exiting ..." << endl;
         }
         else
         {
