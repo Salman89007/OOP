@@ -6,7 +6,7 @@ struct Item
 {
     string name;
     int quantity;
-    int price;
+    double price;
 };
 
 double Total(const Item *I, int n)
