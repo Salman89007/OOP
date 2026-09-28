@@ -15,7 +15,7 @@ public:
         this->name = name;
         this->age = age;
     }
-    virtual void displayInfo() = 0; // pure virtual — Person is now abstract
+    virtual void displayInfo() = 0; // pure virtual(polymorphism) — Person is now abstract
     virtual ~Person()
     {
         cout << name << " (Person) destroyed" << endl;
