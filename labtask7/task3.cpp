@@ -10,6 +10,10 @@ class Item{
 		price =  Price;
 		quantity = Quantity;
 	}
+	void Display(){
+	    cout<<"Price "<<price<<endl;
+	    cout<<"Quantity "<<quantity<<endl;
+	}
 	~Item()
 	{
 		cout<<"constructor destroyed"<<endl;
@@ -17,10 +21,11 @@ class Item{
 };
 
 int main(){
-	Item I[3];
-	I[0] (100,5);
-	I[1] (200,10);
-	I[2] (300,15);
+	Item I[3] = {Item(100,5),Item(200,10),Item(300,2) };
 	
+	for(int i=0; i<3; i++){
+	    cout<<"Item :"<<i+1<<endl;
+	    I[i].Display();
+	}
 	return 0;
 }
