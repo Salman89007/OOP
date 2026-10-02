@@ -1,32 +1,39 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-class Logger{
+class Person{
 	private:
-	char* name;
-	public:
-	Logger(){
-		name = new char[20];
-		strcpy(name,"");
-	}
-
-	void setter(char* n){
-		name = new char[20];
-		strcpy(name,n);
-	}
-	const char* getName() const 
-	{ 
-	    return name; 
-	}
+	char *name;
 	
+	public:
+	void setter(const char* n)
+	{
+	    strcpy(name,n);
+	}
+	Person(const char* n)
+	{
+	    name = new char[20];
+	    strcpy(name,n);
+	}
+	Person(Person &other)
+	{
+	    name = new char[20];
+	    strcpy(name,other.name);
+	    
+	}
+	const char* getName()const {
+	    return name;
+	}
+	~Person(){delete[] name;}
 };
 
 int main(){
-	Logger L1;
-	L1.setter("Bruce wayne");
-	Logger L2 = L1;
-	L2.setter("Clark Kent");
-	cout<<L1.getName()<<endl;
-	cout<<L2.getName()<<endl;
+    Person P1("salman");
+    Person P2 = P1;
+    P2.setter("Bruce wayne");
+    
+    cout<<P1.getName()<<endl;
+    cout<<P2.getName()<<endl;
+	
 	return 0;
 }
