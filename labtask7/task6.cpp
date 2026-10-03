@@ -1,25 +1,36 @@
 #include <iostream>
 #include <string>
 using namespace std;
-class Matrix{
-	private:
+class Matrix
+{
+private:
 	int *ptr;
-	public:
-	Matrix(){
-		ptr = new int[10];
+
+public:
+    Matrix(){ ptr = nullptr;}
+	Matrix(int n)
+	{
+		ptr = new int[n];
+		cout << "constructor created" << endl;
 	}
-	~Matrix(){
+	~Matrix()
+	{
 		delete[] ptr;
-		cout<<"constructor deleted"<<endl;
+		cout << "constructor deleted" << endl;
 	}
 };
 
-int main(){
-	Matrix M[10];
-	for(int i=0;i<10;i++){
-		M[i];
-		cout<<"constructor created"<<endl;
-	}
-	cout<<"------------------------"<<endl;;
+int main()
+{
+	int n;
+	cout<<"enter n: "<<endl;
+	cin>>n;
+	Matrix **M = new Matrix *[n];
+	for (int i = 0; i < n; i++)
+		M[i] = new Matrix(i + 1); // constructor runs here with i+1
+
+	for (int i = 0; i < n; i++)
+		delete M[i];
+	delete[] M;
 	return 0;
 }
