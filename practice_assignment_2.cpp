@@ -10,9 +10,10 @@ class Repository
     static int objectsAlive; // ++ in every ctor, -- in every dtor
     static int commitsEverMade;
     static int nextCommitID;
-    public:
-    Repository(){
 
+public:
+    Repository()
+    {
     }
 };
 
@@ -22,21 +23,118 @@ class Branch
     Commit **history; // OWNS — array of Commit pointers
     int commitCount, historyCapacity;
     const int branchID;
-    public:
-    Branch(const int branchID) : branchID(branchID){
+    void growHistory()
+    {
+        int newCap;
+        if (historyCapacity == 0)
+            newCap = 2;
+        else
+            newCap = historyCapacity * 2;
+        Commit **bigger = new Commit *[newCap];
+        for (int i = 0; i < commitCount; i++)
+            bigger[i] = history[i]; // addresses only
+        delete[] history;           // frees the slots, NOT the Commits
+        history = bigger;
+        historyCapacity = newCap;
+    }
 
+public:
+    Branch() : branchID(0)
+    {
+        branchName = nullptr;
+        history = nullptr;
+        commitCount = 0;
+    };
+    Branch(const int branchID, const char *name) : branchID(branchID)
+    {
+        int len = strlen(name);
+        branchName = new char[len + 1];
+        strcpy(branchName, name);
+        history = nullptr;
+        commitCount = 0;
+        historyCapacity = 0;
+    }
+    void addCommit(const Commit &c, int id, const char *message)
+    {
+        if (commitCount == historyCapacity)
+            growHistory();
+        history[commitCount] = new Commit(c); // copy constructor does the deep copy
+        commitCount++;
+    }
+    ~Branch()
+    {
+        for (int i = 0; i < commitCount; i++)
+        {
+            delete[] history[i];
+        }
+        delete[] history;
+        delete[] branchName;
     }
 };
 class Commit
 {
     char *message;  // OWNS
     Blob *snapshot; // OWNS — array of Blob OBJECTS
-    int fileCount;
+    int fileCount = 0;
     const int commitID; // initialiser list only
     Commit *parent;
-    public:
-    Commit(const int commitID) : commitID(commitID){
 
+public:
+    Commit() : commitID(0)
+    {
+        parent = nullptr;
+        message = nullptr;
+        snapshot = nullptr;
+    }
+    Commit(const int commitID, const char *message) : commitID(commitID) // this will run in the beginning
+    {
+        int len = strlen(message);
+        this->message = new char[len + 1];
+        strcpy(this->message, message);
+        snapshot = nullptr;
+        parent = nullptr;
+        fileCount = 0;
+    }
+    Commit(const Commit &sourceRef) : commitID(sourceRef.commitID)
+    {
+        int len = strlen(sourceRef.message);
+        this->message = new char[len + 1];
+        strcpy(this->message, sourceRef.message);
+        fileCount = sourceRef.fileCount;
+        snapshot = new Blob[fileCount];
+        for (int i = 0; i < fileCount; i++)
+            snapshot[i].assignFrom(sourceRef.snapshot[i]);
+        parent = sourceRef.parent;
+    }
+    int getFileCount() const
+    {
+        return fileCount;
+    }
+    void addBlob(const char *name, const char *text)
+    {
+        Blob *bigger = new Blob[fileCount + 1];
+        for (int i = 0; i < fileCount; i++)
+        {
+            bigger[i].assignFrom(snapshot[i]);
+        }
+        Blob temp(name, text);
+        bigger[fileCount].assignFrom(temp);
+        delete[] snapshot;
+        snapshot = bigger;
+        fileCount++;
+    }
+    void show() const
+    {
+        for (int i = 0; i < fileCount; i++)
+        {
+            cout << snapshot[i].getFilename() << endl;
+            cout << snapshot[i].getContent() << endl;
+        }
+    }
+    ~Commit()
+    {
+        delete[] message;
+        delete[] snapshot;
     }
 };
 class Blob
@@ -46,8 +144,13 @@ class Blob
     int byteCount;
 
 public:
-    Blob(){}
-    Blob(const char *filename, const char *contents)//for B
+    Blob()
+    {
+        filename = nullptr;
+        contents = nullptr;
+        byteCount = 0;
+    }
+    Blob(const char *filename, const char *contents) // for B
     {
         int len1 = strlen(filename);
         this->filename = new char[len1 + 1];
@@ -59,7 +162,7 @@ public:
         strcpy(this->contents, contents);
     }
 
-    Blob(const Blob &sourceRef)//for second , in parameters we have B
+    Blob(const Blob &sourceRef) // for second , in parameters we have B
     {
         int len1 = strlen(sourceRef.filename);
         filename = new char[len1 + 1];
@@ -78,13 +181,29 @@ public:
         strcpy(contents, content);
         byteCount = len;
     }
-    const int getByteCount() const 
+    const int getByteCount() const
     {
         return byteCount;
     }
     const char *getContent() const
     {
         return contents;
+    }
+    const char *getFilename() const { return filename; }
+    void assignFrom(const Blob &other)
+    {
+        delete[] filename;
+        delete[] contents;
+
+        int len1 = strlen(other.filename);
+        filename = new char[len1 + 1];
+        strcpy(filename, other.filename);
+
+        int len2 = strlen(other.contents);
+        contents = new char[len2 + 1];
+        strcpy(contents, other.contents);
+
+        byteCount = other.byteCount;
     }
     friend bool compareBlobs(const Blob &, const Blob &);
     ~Blob()
@@ -100,13 +219,14 @@ bool compareBlobs(const Blob &, const Blob &)
 }
 int main()
 {
+    Commit c1(1, "first draft");
+    c1.addBlob("notes.txt", "chapter one");
+    c1.addBlob("todo.txt", "buy milk");
+    c1.show();
 
-    Blob B("notes 1", "bruce wayne");
-    Blob second = B;
-    second.setContent("clark kent");//second already contains bruce wayne 
-    cout << "Content : " << B.getContent() << endl;
-    cout << "Content : " << second.getContent() << endl;
-    cout << "BYTE count : " << B.getByteCount() << endl;
-
+    Commit c2(c1);
+    c2.addBlob("extra.txt", "hello");
+    cout << "c1 files: " << c1.getFileCount() << endl;
+    cout << "c2 files: " << c2.getFileCount() << endl;
     return 0;
 }
