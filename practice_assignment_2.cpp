@@ -152,8 +152,8 @@ public:
         }
         return nullptr;
     }
-    void addBlob(const char *name, const char *text)
-    {
+    void addBlob(const char *name, const char *text)//runs for first blob , filecount is 0
+    {                                               //so the loop does not run 
         Blob *bigger = new Blob[fileCount + 1];
         for (int i = 0; i < fileCount; i++)
         {
