@@ -130,7 +130,7 @@ int main()
     Student S("salman", 1, 3.45, 3);
     Faculty F("jabbar", 3, 20000, "CS", 5);
     Professor P("Ali", 10, 50000, "CS", 9, 12);
-    staff s("hassan", 05, 2000, 2);
+    staff s("hassan",5, 2000, 2);
     TeachingAssistant TA("haider", 23, 3, 7, 30000, 7);
     S.Display();
     F.Display();
