@@ -22,11 +22,6 @@ public:
     virtual std::string getTag() const = 0;
     virtual ~Vehicle() {}
 };
-class Bike : public Vehicle
-{
-public:
-    Bike(double base, double rate, double minimum) : Vehicle(base, rate, minimum) {}
-    std::string getTag() const override { return "BIKE"; }
-};
+
 
 #endif
