@@ -7,7 +7,7 @@
 class Rickshaw : public Vehicle
 {
 public:
-    Rickshaw() : Vehicle(50, 18, 80) {}
+    Rickshaw() : Vehicle(70, 24, 120) {}
     std::string getTag() const override { return "RICKSHAW"; }
 };
 

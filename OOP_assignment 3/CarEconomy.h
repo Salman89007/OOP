@@ -7,8 +7,8 @@
 class CarEconomy : public Vehicle
 {
 public:
-    CarEconomy() : Vehicle(50, 18, 80) {}
-    std::string getTag() const override { return "CARECONOMY"; }
+    CarEconomy() : Vehicle(120, 42, 250) {}
+    std::string getTag() const override { return "CAR_ECONOMY"; }
 };
 
 #endif
