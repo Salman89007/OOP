@@ -9,7 +9,6 @@ using namespace std;
 int main()
 {
     User u();
-    
-    
+
     return 0;
 }

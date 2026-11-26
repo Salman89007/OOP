@@ -1,0 +1,8 @@
+Z1|University Town
+Z2|Hayatabad
+Z3|Saddar
+Z4|Board Bazaar
+Z5|Ring Road
+Z6|Bacha Khan Airport
+Z7|Gulbahar
+Z8|Warsak Road
