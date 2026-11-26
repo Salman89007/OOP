@@ -9,7 +9,11 @@ protected:
     double base, rate, minimum;
 
 public:
-    Vehicle(double base, double rate, double minimum) : base(base), rate(rate), minimum(minimum) {}
+    static int liveCount;
+    Vehicle(double base, double rate, double minimum) : base(base), rate(rate), minimum(minimum)
+    {
+        liveCount++;
+    }
     virtual double calculateFare(double km) const
     {
         double fare = base + rate * km;
@@ -20,8 +24,7 @@ public:
         return fare;
     }
     virtual std::string getTag() const = 0;
-    virtual ~Vehicle() {}
+    virtual ~Vehicle() {liveCount--;}
 };
-
 
 #endif
